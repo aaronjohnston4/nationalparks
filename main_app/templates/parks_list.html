@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+{% block title %}
+Parks
+{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Trending Parks</h1>
+
+<form class="mb-5" method="get">
+  <div class="field has-addons">
+    <div class="control">
+      <!--  Our input will search by name of artist  -->
+      <input class="input" type="text" name="name" placeholder="search for parks" />
+    </div>
+    <div class="control">
+      <input class="button is-success" type="submit" value="Search" />
+    </div>
+  </div>
+  <!--  This anchor tag will redirect back to artist list without a query param -->
+  <a class="button is-dark" href="{% url 'parks_list' %}">Clear Search</a>
+</form>
+<div class="gallery">
+  {% for parks in parks %}
+  <a href="/parks/{{parks.id}}/">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-square">
+          <img src="{{parks.img}}" alt="{{parks.name}}" />
+        </figure>
+      </div>
+      <div class="card-header">
+        <p class="card-header-title">{{parks.name}}</p>
+      </div>
+    </div>
+  </a>
+  {% empty %}
+    <h1>No parks found matching your query</h1>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="home__favoritelists">
+    {% for favorites in favoritelists %}
+
+        <div class="favoritelist mb-5">
+            <h3 class="title is-3 has-text-success">{{favorites.title}}</h3>
+            <hr />
+            {% for site in favorites.sites.all %}
+
+            <div class="site">
+                <span>{{forloop.counter}}</span>
+                <span><b>{{site.title}}</b></span>
+                <span>
+                    <!--   Here we are creating an anchor
+                    tag that when clicked will hit our new
+                    route and send a query to remove the song     -->
+                    <a href="{% url 'favoritelist_site_assoc' favorites.pk site.pk %}?assoc=remove" class="button is-danger is-outlined">
+                    <span class="icon is-small">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    </a>
+                </span>
+            </div>
+
+        {% endfor %}
+            
+        </div>
+    {% empty %} 
+        <div class="favoritelist mb-5">"There are no sites in this favoritelist"</div>
+    {% endfor %}
+</div>
+{% endblock %}

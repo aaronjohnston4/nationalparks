@@ -1,0 +1,1 @@
+web: gunicorn park_project.wsgi
